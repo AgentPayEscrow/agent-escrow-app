@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Agent Escrow | AI Agent Payment Platform',
-  description: 'Let AI agents pay autonomously with spending limits on Stellar',
+  title: 'Agent Escrow',
+  description: 'AI Agent Payment Platform on Stellar',
 };
 
 export default function RootLayout({ children }) {

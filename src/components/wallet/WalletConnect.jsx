@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { connectFreighter, isFreighterInstalled, truncateAddress } from '@/lib/stellar/freighter';
 
 export default function WalletConnect({ onConnect, onDisconnect }) {
   const [publicKey, setPublicKey] = useState(null);
