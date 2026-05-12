@@ -22,10 +22,11 @@ export default function WalletConnect({ onConnect, onDisconnect }: WalletConnect
         const connected = await checkFreighterConnection();
         if (connected) {
           try {
-            const { connectFreighter: connect } = await import('@/lib/stellar/freighter');
-            const key = await connect();
-            setPublicKey(key);
-            onConnect?.(key);
+            const key = await connectFreighter();
+            if (key) {
+              setPublicKey(key);
+              onConnect?.(key);
+            }
           } catch (error) {
             console.error('Auto-connect failed:', error);
           }
@@ -45,8 +46,10 @@ export default function WalletConnect({ onConnect, onDisconnect }: WalletConnect
     setIsConnecting(true);
     try {
       const key = await connectFreighter();
-      setPublicKey(key);
-      onConnect?.(key);
+      if (key) {
+        setPublicKey(key);
+        onConnect?.(key);
+      }
     } catch (error) {
       console.error('Connection error:', error);
       alert('Failed to connect wallet. Please make sure Freighter is unlocked.');
