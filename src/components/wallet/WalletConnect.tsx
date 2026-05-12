@@ -23,12 +23,8 @@ export default function WalletConnect({ onConnect, onDisconnect }: WalletConnect
         if (connected) {
           try {
             const key = await connectFreighter();
-            if (key) {
-              setPublicKey(key);
-              if (onConnect) {
-                onConnect(key);
-              }
-            }
+            setPublicKey(key);
+            onConnect?.(key);
           } catch (error) {
             console.error('Auto-connect failed:', error);
           }
@@ -48,12 +44,8 @@ export default function WalletConnect({ onConnect, onDisconnect }: WalletConnect
     setIsConnecting(true);
     try {
       const key = await connectFreighter();
-      if (key) {
-        setPublicKey(key);
-        if (onConnect) {
-          onConnect(key);
-        }
-      }
+      setPublicKey(key);
+      onConnect?.(key);
     } catch (error) {
       console.error('Connection error:', error);
       alert('Failed to connect wallet. Please make sure Freighter is unlocked.');
@@ -64,9 +56,7 @@ export default function WalletConnect({ onConnect, onDisconnect }: WalletConnect
 
   const handleDisconnect = () => {
     setPublicKey(null);
-    if (onDisconnect) {
-      onDisconnect();
-    }
+    onDisconnect?.();
   };
 
   return (
